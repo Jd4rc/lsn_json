@@ -12,6 +12,7 @@ def test_log_returns_original_result():
 
     assert result == [1, 2, 3]
 
+
 def test_log_prints_count_of_items(capsys):
     @log
     def get_items():

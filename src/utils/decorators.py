@@ -10,4 +10,5 @@ def log(func):
         print(f"Обработано: {len(result)} элементов")
 
         return result
+
     return wrapper
