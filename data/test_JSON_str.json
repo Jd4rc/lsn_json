@@ -1,0 +1,19 @@
+{
+  "people": [
+    {
+      "name": "John Smith",
+      "phone": "666-555-444",
+      "emails": [
+        "johnsmith@home.com",
+        "john.smith@work.com"
+      ],
+      "has_license": false
+    },
+    {
+      "name": "Jane Doe",
+      "phone": "111-222-333",
+      "emails": null,
+      "has_license": true
+    }
+  ]
+}
