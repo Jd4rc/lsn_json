@@ -22,3 +22,21 @@ def test_log_prints_count_of_items(capsys):
     captured = capsys.readouterr()
 
     assert captured.out == "Обработано: 3 элементов\n"
+
+
+def test_log_works_with_args_and_kwargs(capsys):
+    @log
+    def get_items(start, end, reverse=False):
+        result = list(range(start, end))
+
+        if reverse:
+            result.reverse()
+
+        return result
+
+    result = get_items(1, 4, reverse=True)
+
+    captured = capsys.readouterr()
+
+    assert result == [3, 2, 1]
+    assert captured.out == "Обработано: 3 элементов\n"
