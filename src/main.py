@@ -79,22 +79,23 @@ def get_weather(lat:float, lon:float) -> float:
     return weather_data['main']['temp']
 
 
-# from unittest.mock import patch
-#
-# def get_github_user_info(username):
-#     response = requests.get(f'https://api.github.com/users/{username}')
-#     return response.json()
-#
-# @patch('requests.get')
-# def test_get_github_user_info(mock_get):
-#     mock_get.return_value.json.return_value = {
-#         'login': 'testuser', 'name': 'Test User'
-#     }
-#     assert (
-#             get_github_user_info('testuser') ==
-#             {'login': 'testuser', 'name': 'Test User'}
-#     )
-#     mock_get.assert_called_once_with(
-#         'https://api.github.com/users/testuser'
-#     )
+from unittest.mock import patch
+
+@patch('requests.get')
+def test_get_weather(mock_get):
+    mock_get.return_value.json.return_value = {
+        'main': {'temp': 1}
+    }
+    assert get_weather(1, 1) == 1
+    mock_get.assert_called_once_with(
+        'https://api.openweathermap.org/data/2.5/weather',
+
+        params = {
+            'lat': 1,
+            'lon': 1,
+            'appid': API_KEY,
+            'units': 'metric',
+            'lang': 'ru'
+        }
+    )
 
