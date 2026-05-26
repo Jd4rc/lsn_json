@@ -10,7 +10,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 API_KEY = os.getenv('API_KEY')
 
-def get_coords(city: str) -> tuple:
+def get_coords(city: str) -> tuple[float, float]:
+    """
+   Получает координаты города через API OpenWeatherMap.
+
+   :param city: Название города.
+   :return: Кортеж с широтой и долготой (lat, lon).
+   """
     geo_url = 'http://api.openweathermap.org/geo/1.0/direct'
 
     geo_params = {
@@ -40,6 +46,13 @@ def get_coords(city: str) -> tuple:
     return (lat, lon)
 
 def get_weather(lat:float, lon:float) -> float:
+    """
+        Получает текущую температуру по координатам через API OpenWeatherMap.
+
+        :param lat: Широта.
+        :param lon: Долгота.
+        :return: Температура в градусах Цельсия.
+        """
 
     weather_url = 'https://api.openweathermap.org/data/2.5/weather'
 
