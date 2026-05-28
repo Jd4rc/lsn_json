@@ -3,16 +3,37 @@ import json
 
 
 def fetch_github_repositories(
-        username:str
-) -> list[dict]:
+        usernames
+):
+    results = []
+    for username in usernames:
+        status, user_data = get_user_info(username)
+        if not status:
+            continue
 
-    response = requests.get(
-        f'https://api.github.com/users/{username}/repos'
-    )
+        status, repositories = get_user_repos(username)
+        if not status:
+            continue
 
-    response.raise_for_status()
+        result = {
+            'login': user_data['login'],
+            'public_repos': user_data['public_repos'],
+            'repositories': repositories
+        }
 
-    return response.json()
+        results.append(result)
+    return json.dumps(results, indent=4, ensure_ascii=False)
 
+def get_user_info(user: str) -> tuple[bool, dict]:
+    url = f"https://api.github.com/users/{user}"
+    response = requests.get(url)
+    if response.status_code != 200:
+        return False, {}
+    return True, response.json()
 
-print(json.dumps(fetch_github_repositories('Jd4rc'), indent=4, ensure_ascii=False))
+def get_user_repos(user: str) -> tuple[bool, list]:
+    repo_url = f"https://api.github.com/users/{user}/repos"
+    repo_response = requests.get(repo_url)
+    if repo_response.status_code != 200:
+        return False, []
+    return True, [repo['name'] for repo in repo_response.json()]
