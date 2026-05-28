@@ -33,3 +33,20 @@ def test_event_duration(tmp_path, monkeypatch):
     result = event_duration("events.json")
 
     assert result == [4, 10]
+
+
+def test_event_duration_empty_file(tmp_path, monkeypatch):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+
+    events_file = data_dir / "events.json"
+    events_file.write_text("[]", encoding="utf-8")
+
+    monkeypatch.setattr(
+        "src.utils.event_duration.BASE_DIR",
+        tmp_path,
+    )
+
+    result = event_duration("events.json")
+
+    assert result == []
