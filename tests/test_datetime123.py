@@ -15,4 +15,12 @@ def test_add_week_to_dates_empty():
     assert add_week_to_dates([]) == []
 
 
+import pytest
+
+
+def test_add_week_to_dates_invalid_date():
+    with pytest.raises(ValueError):
+        add_week_to_dates(["2023-01-07"])
+
+
 
