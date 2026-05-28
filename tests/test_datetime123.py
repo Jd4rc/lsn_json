@@ -11,4 +11,8 @@ def test_add_week_to_dates():
     ]
 
 
+def test_add_week_to_dates_empty():
+    assert add_week_to_dates([]) == []
+
+
 
