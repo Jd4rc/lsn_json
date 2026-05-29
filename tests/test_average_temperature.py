@@ -37,5 +37,29 @@ def test_calculate_average_temperature(tmp_path, monkeypatch):
         'Moscow': 20.0
     }
 
+def test_save_average_temperature(tmp_path, monkeypatch):
+    data_dir = tmp_path / 'data'
+    data_dir.mkdir()
+
+    monkeypatch.setattr(
+        'src.utils.average_temperature.BASE_DIR',
+        tmp_path,
+    )
+
+    result = {
+        'Moscow': 20.0
+    }
+
+    save_average_temperature(result)
+
+    output_path = data_dir / 'output.json'
+
+    assert output_path.exists()
+
+    saved_data = json.loads(
+        output_path.read_text(encoding='utf-8'),
+    )
+
+    assert saved_data['Moscow'] == 20.0
 
 
