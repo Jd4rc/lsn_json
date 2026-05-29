@@ -1,0 +1,29 @@
+import json
+from src.utils.average_age import get_average_age
+
+
+def test_get_average_age(tmp_path, monkeypatch):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+
+    file_path = data_dir / 'name_and_age.json'
+
+    test_data = [
+        {"name": "Alex", "age": 20},
+        {"name": "Bob", "age": 25},
+        {"name": "Kate", "age": 18}
+    ]
+
+    file_path.write_text(
+        json.dumps(test_data),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(
+        'src.utils.average_age.BASE_DIR',
+        tmp_path,
+    )
+
+    average_age = get_average_age('name_and_age.json')
+
+    assert average_age == 21.0
