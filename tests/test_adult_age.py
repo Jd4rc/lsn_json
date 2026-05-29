@@ -1,5 +1,4 @@
 import json
-import pathlib
 import pytest
 from src.utils.adult_age import get_adults
 
