@@ -38,6 +38,3 @@ def get_adults(
         for el in data
         if el['age'] >= 18
     ]
-
-
-print(get_adults('name_and_age.json'))
