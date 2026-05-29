@@ -1,4 +1,5 @@
 import json
+import pytest
 from src.utils.average_age import get_average_age
 
 
@@ -27,3 +28,25 @@ def test_get_average_age(tmp_path, monkeypatch):
     average_age = get_average_age('name_and_age.json')
 
     assert average_age == 21.0
+
+
+def test_get_average_age_with_no_data(tmp_path, monkeypatch):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+
+    file_path = data_dir / 'name_and_age.json'
+
+    test_data = []
+
+    file_path.write_text(
+        json.dumps(test_data),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(
+        'src.utils.average_age.BASE_DIR',
+        tmp_path,
+    )
+
+    with pytest.raises(ValueError):
+        get_average_age('name_and_age.json')
