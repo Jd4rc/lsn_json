@@ -14,6 +14,12 @@ def get_average_age(
         )
     )
 
+    for user in data:
+        if 'age' not in user:
+            raise KeyError('Invalid user data')
+        if not isinstance(user['age'], int):
+            raise TypeError('Age must be an integer')
+
 
     ages = [el['age'] for el in data]
 
