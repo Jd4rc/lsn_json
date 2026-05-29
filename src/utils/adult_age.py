@@ -19,6 +19,7 @@ def get_adults(
 
         Raises:
             ValueError: Если в данных пользователя отсутствует ключ 'age'.
+            TypeError: Если значением ключа "age" окажется не число.
     """
     file_path = BASE_DIR / 'data' / filename
 
