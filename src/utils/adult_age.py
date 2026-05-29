@@ -28,10 +28,11 @@ def get_adults(
         )
     )
 
-
     for el in data:
         if 'age' not in el:
             raise ValueError('Invalid user data')
+        if not isinstance(el['age'], int):
+            raise TypeError('Age must be an integer')
 
     return [
         el
