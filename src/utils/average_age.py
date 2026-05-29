@@ -9,13 +9,17 @@ def get_average_age(
     file_path = BASE_DIR / 'data' / filename
 
     data = json.loads(
-    file_path.read_text(
-        encoding='utf-8'
+        file_path.read_text(
+            encoding='utf-8'
+        )
     )
-)
 
 
     ages = [el['age'] for el in data]
+
+    if not ages:
+        raise ValueError('Users list is empty')
+
 
     average = sum(ages) / len(ages)
 
