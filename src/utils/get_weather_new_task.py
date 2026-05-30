@@ -14,7 +14,7 @@ def get_coords(
         city:str
 ) -> tuple[float, float]:
     if not API_KEY:
-        raise Exception("API_KEY not set")
+        raise ValueError("API_KEY not set")
 
     url = 'http://api.openweathermap.org/geo/1.0/direct'
 

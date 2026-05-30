@@ -52,3 +52,13 @@ def test_get_coords_error(mock_get, monkeypatch):
 
     with pytest.raises(ValueError):
         get_coords('123')
+
+
+def test_get_coords_without_api_key(monkeypatch):
+    monkeypatch.setattr(
+        'src.utils.get_weather_new_task.API_KEY',
+        None
+    )
+
+    with pytest.raises(ValueError):
+        get_coords('Minsk')
