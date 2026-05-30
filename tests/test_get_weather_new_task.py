@@ -38,3 +38,17 @@ def test_get_coords(mock_get, monkeypatch):
             'appid': 'test_api_key',
         }
     )
+
+
+@patch('src.utils.get_weather_new_task.requests.get')
+def test_get_coords_error(mock_get, monkeypatch):
+    monkeypatch.setattr(
+        'src.utils.get_weather_new_task.API_KEY',
+        'test_api_key'
+    )
+
+    mock_get.return_value.json.return_value = []
+
+
+    with pytest.raises(ValueError):
+        get_coords('123')
