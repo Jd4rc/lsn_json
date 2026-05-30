@@ -77,3 +77,24 @@ def test_get_adults_with_another_type_age(tmp_path, monkeypatch):
 
     with pytest.raises(TypeError):
         get_adults('name_and_age.json')
+
+
+
+def test_get_adults_with_empty_list(tmp_path, monkeypatch):
+    data_path = tmp_path / "data"
+    data_path.mkdir()
+
+    file_path = data_path / 'name_and_age.json'
+
+    test_data = []
+
+    file_path.write_text(
+        json.dumps(test_data),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(
+        'src.utils.adult_age.BASE_DIR', tmp_path
+    )
+
+    assert get_adults('name_and_age.json') == test_data
