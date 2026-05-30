@@ -13,6 +13,25 @@ API_KEY = os.getenv("API_KEY")
 def get_coords(
         city:str
 ) -> tuple[float, float]:
+    """
+       Получает географические координаты указанного города.
+
+       Выполняет запрос к OpenWeather Geocoding API и возвращает
+       широту и долготу первого найденного результата.
+
+       Args:
+           city: Название города для поиска.
+
+       Returns:
+           Кортеж из двух чисел типа float:
+           (широта, долгота).
+
+       Raises:
+           ValueError: Если API_KEY не задан.
+           ValueError: Если город не найден.
+           requests.exceptions.RequestException:
+               Если запрос к API завершился ошибкой.
+       """
     if not API_KEY:
         raise ValueError("API_KEY not set")
 
