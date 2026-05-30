@@ -16,7 +16,7 @@ def get_coords(
     if not API_KEY:
         raise Exception("API_KEY not set")
 
-    url = f'http://api.openweathermap.org/geo/1.0/direct?'
+    url = 'http://api.openweathermap.org/geo/1.0/direct'
 
     params = {
         'q': city,
