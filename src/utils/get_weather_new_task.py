@@ -16,14 +16,19 @@ def get_coords(
     if not API_KEY:
         raise Exception("API_KEY not set")
 
-    url = f'http://api.openweathermap.org/geo/1.0/direct?q={city}&appid={API_KEY}'
-    response = requests.get(url)
+    url = f'http://api.openweathermap.org/geo/1.0/direct?'
+
+    params = {
+        'q': city,
+        'appid': API_KEY,
+    }
+
+    response = requests.get(url, params=params)
     response.raise_for_status()
 
     data = response.json()
 
-    lat = data[0]['lat']
-    lon = data[0]['lon']
+    if not data:
+        raise ValueError('City not found')
 
-    return (lat, lon)
-
+    return data[0]['lat'], data[0]['lon']
