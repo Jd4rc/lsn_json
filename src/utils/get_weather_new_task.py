@@ -51,3 +51,30 @@ def get_coords(
         raise ValueError('City not found')
 
     return data[0]['lat'], data[0]['lon']
+
+
+def get_weather(
+        lat:float,
+        lon:float,
+) -> float:
+    if not API_KEY:
+        raise ValueError("API_KEY not set")
+
+    url = 'https://api.openweathermap.org/data/2.5/weather'
+
+    params = {
+        'lat': lat,
+        'lon': lon,
+        'appid': API_KEY,
+        'units': 'metric',
+        'lang': 'ru',
+    }
+
+    response = requests.get(url, params=params, timeout=10)
+
+    response.raise_for_status()
+
+    data = response.json()
+
+    return data['main']['temp']
+
