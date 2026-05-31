@@ -2,7 +2,7 @@ import pytest
 import requests
 from unittest.mock import patch
 
-from src.utils.get_weather_new_task import get_coords, get_weather
+from src.utils.get_weather_new_task import get_coords, get_weather, get_weather_by_city
 
 @patch('src.utils.get_weather_new_task.requests.get')
 def test_get_coords(mock_get, monkeypatch):
@@ -135,3 +135,19 @@ def test_get_weather_with_invalid_data_return(mock_get, monkeypatch):
         get_weather(1, 1)
 
     mock_response.raise_for_status.assert_called_once()
+
+
+
+@patch('src.utils.get_weather_new_task.get_weather')
+@patch('src.utils.get_weather_new_task.get_coords')
+def test_get_weather_by_city(mock_get_coords, mock_get_weather):
+    mock_get_coords.return_value = (53.9, 27.56)
+    mock_get_weather.return_value = 2.14
+
+    result = get_weather_by_city('Minsk')
+
+    assert result == 2.14
+
+    mock_get_coords.assert_called_once_with('Minsk')
+    mock_get_weather.assert_called_once_with(53.9, 27.56)
+
