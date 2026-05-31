@@ -96,3 +96,10 @@ def get_weather(
 
     return data['main']['temp']
 
+
+def get_weather_by_city(
+        city: str
+) -> float:
+    lat, lon = get_coords(city)
+    return get_weather(lat, lon)
+
