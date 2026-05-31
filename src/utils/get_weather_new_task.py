@@ -57,6 +57,24 @@ def get_weather(
         lat:float,
         lon:float,
 ) -> float:
+    """
+    Получает текущую температуру воздуха по заданным координатам
+    через API OpenWeatherMap.
+
+    Args:
+        lat: Широта местоположения.
+        lon: Долгота местоположения.
+
+    Returns:
+        Температура воздуха в градусах Цельсия.
+
+    Raises:
+        ValueError: Если переменная окружения API_KEY не задана.
+        requests.exceptions.RequestException:
+            Если запрос к API завершился ошибкой.
+        KeyError:
+            Если в ответе API отсутствуют ожидаемые данные.
+    """
     if not API_KEY:
         raise ValueError("API_KEY not set")
 
