@@ -100,5 +100,5 @@ def test_get_weather_with_missing_api_key(monkeypatch):
         None
     )
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match='API_KEY not set'):
         get_weather(1, 1)
