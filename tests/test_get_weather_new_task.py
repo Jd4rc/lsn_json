@@ -93,3 +93,12 @@ def test_get_weather(mock_get, monkeypatch):
     },
         timeout=10
     )
+
+def test_get_weather_with_missing_api_key(monkeypatch):
+    monkeypatch.setattr(
+        'src.utils.get_weather_new_task.API_KEY',
+        None
+    )
+
+    with pytest.raises(ValueError):
+        get_weather(1, 1)
