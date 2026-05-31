@@ -118,3 +118,20 @@ def test_get_weather_with_request_error(mock_get, monkeypatch):
 
     with pytest.raises(requests.exceptions.HTTPError):
         get_weather(1, 1)
+
+
+@patch('src.utils.get_weather_new_task.requests.get')
+def test_get_weather_with_invalid_data_return(mock_get, monkeypatch):
+    monkeypatch.setattr(
+        'src.utils.get_weather_new_task.API_KEY',
+        'test_api_key'
+    )
+
+    mock_response = mock_get.return_value
+
+    mock_response.json.return_value = {}
+
+    with pytest.raises(KeyError):
+        get_weather(1, 1)
+
+    mock_response.raise_for_status.assert_called_once()
