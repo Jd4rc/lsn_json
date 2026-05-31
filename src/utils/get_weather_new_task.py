@@ -100,6 +100,21 @@ def get_weather(
 def get_weather_by_city(
         city: str
 ) -> float:
+    """
+        Получает координаты указанного города и возвращает текущую
+        температуру воздуха через API OpenWeatherMap.
+
+        Args:
+            city: Название города.
+
+        Returns:
+            Текущая температура воздуха в градусах Цельсия.
+
+        Raises:
+            ValueError: Если API_KEY не задан или город не найден.
+            requests.exceptions.RequestException:
+                Если произошла ошибка при выполнении HTTP-запроса.
+        """
     lat, lon = get_coords(city)
     return get_weather(lat, lon)
 
